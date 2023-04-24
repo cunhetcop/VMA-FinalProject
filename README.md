@@ -57,7 +57,8 @@ VMA-FINALPROJECT/
 - typing "docker-compose up -d"
 - when all done, typing "go mod download"
 5. Now open the project with whatever IDE you have (VScode, IntellIJ...) and download extensions/plugins following name: Go (or golang) .
-6. Finally open terminal in IDE and typing "go run main.go"
+6. Find .env file and put your environment here
+7. Finally open terminal in IDE and typing "go run main.go"
 ALL SET ARE DONE, YOUR PROJECT IS READY TO RUN
 
 
