@@ -14,6 +14,7 @@ The project describes product management on an online sales website, consisting 
 - Uses Redis in project
 
 **Project structure:**
+<pre>
 VMA-FINALPROJECT/
 │
 │
@@ -41,6 +42,7 @@ VMA-FINALPROJECT/
 ├── go.sum
 ├── main.go
 └── README.md
+</pre>
 
 
 **How to run it?**
