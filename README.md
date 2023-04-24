@@ -3,7 +3,7 @@
 Hello,
 Welcome to my project, this is my first personal golang project at VMA, here's something about my project.
 
-**About the projec:t**
+**About the project:**
 
 The project describes product management on an online sales website, consisting of 4 main tables: user, role, category, product
 
@@ -66,4 +66,4 @@ ALL SET ARE DONE, YOUR PROJECT IS READY TO RUN
 2. If there is any error with go mod or go sum, run the command "go mod tidy" (not recommended)
 3. If you have any questions, please contact me by email: linhnh4@vmodev.com
 
-THANK YOU
+**THANK YOU**
