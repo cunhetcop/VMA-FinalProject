@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f15D1F;
+            padding: 20px;
+        }
+        .email-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f15D1F;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .email-content {
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+        }
+        /* .email-password {
+            font-weight: bold;
+            color: #63a4c9;
+        } */
+        .email-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border-top: 1px solid #dddddd;
+        }
+        .email-footer img {
+            width: 100%;
+            max-width: 100px;
+            height: auto;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .contact-item img {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-logo">
+            <img src="cid:logo" alt="Company Logo" width="100%">
+        </div>
+        <div class="email-content">
+            <p style="color: #dddddd;">Hello,</p>
+            <p style="color: #dddddd;">Your new password is: <span style="color:greenyellow;" class="email-password">{{.Password}}</span></p>
+            <p style="color: #dddddd;">Please login and change your password as soon as possible to protect your account </p>
+            <p style="color: #dddddd;">Best regards,</p>
+            <p style="color: #dddddd;">VMO Support Team</p>
+        </div>
+
+    </div>
+</body>
+<footer>
+    <div class="email-footer">
+        <div class="email-image">
+            <div>
+                <img src="cid:logo2" alt="Company Logo" width="150%" style="padding-top: 27px;">
+            </div>
+        </div>
+        <div class="email-contact">
+            <div class="contact-info">
+                <div>
+                    <div class="contact-item">
+                        <img src="cid:nameIcon" alt="Name Icon">
+                        <span>Ha Linh Nguyen</span>
+                    </div>
+                    <div class="contact-item">
+                        <img src="cid:phoneIcon" alt="Phone Icon">
+                        <span>+84 914 133028</span>
+                    </div>
+                    <div class="contact-item">
+                        <img src="cid:emailIcon" alt="Email Icon">
+                        <span>linhnh4@vmodev.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <img src="cid:addressIcon" alt="Email Icon">
+                        <span>5F, IDMC Tower, 21 Duy Tan str, Hanoi, Vietnam</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</html>
