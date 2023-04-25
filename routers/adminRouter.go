@@ -2,7 +2,6 @@
 package routers
 
 import (
-	"net/http"
 	"nguyenhalinh/go/controllers"
 	"nguyenhalinh/go/middleware"
 	"nguyenhalinh/go/utils"
@@ -13,7 +12,6 @@ import (
 func SetupAdminRoutes(r *gin.Engine, adminPermissions middleware.Permissions) {
     adminRoutes := r.Group("/admin")
     {
-		adminRoutes.StaticFS("/uploads", http.Dir("uploads")) 
         adminRoutes.POST("/register", controllers.RegisterAdmin)
         adminRoutes.POST("/login", controllers.LoginAdmin)
         adminRoutes.GET("/logout", controllers.Logout)
@@ -24,7 +22,7 @@ func SetupAdminRoutes(r *gin.Engine, adminPermissions middleware.Permissions) {
         adminRoutes.GET("/users/:id", controllers.GetUserAdmin)
         adminRoutes.PUT("/users/:id", controllers.UpdateUserAdmin)
         adminRoutes.DELETE("/users/:id", controllers.DeleteUserAdmin)
-		adminRoutes.POST("/upload/:id", controllers.UploadImageAdmin)
+		adminRoutes.POST("/upload-avatar/:id", controllers.UploadImageAdmin)
 
         // New routes for products and categories
         adminRoutes.GET("/products", controllers.GetProductListAdmin)

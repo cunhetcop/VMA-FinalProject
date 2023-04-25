@@ -63,8 +63,9 @@ ALL SET ARE DONE, YOUR PROJECT IS READY TO RUN
 
 
 **Bugs during project starting on:**
-1. If there is a redis initialization error, try changing the following value in the .env file: "localhost:6379" to "redis:6379". Or try changing to another port
-2. If there is any error with go mod or go sum, run the command "go mod tidy" (not recommended)
-3. If you have any questions, please contact me by email: linhnh4@vmodev.com
+1. If an error occurs when running main.go try running this command: "docker-compose down" at the terminal of the project directory
+2. If there is a redis initialization error, try changing the following value in the .env file: "localhost:6379" to "redis:6379". Or try changing to another port
+3. If there is any error with go mod or go sum, run the command "go mod tidy" (not recommended)
+4. If you have any questions, please contact me by email: linhnh4@vmodev.com
 
 **THANK YOU**

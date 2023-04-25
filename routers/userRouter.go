@@ -2,7 +2,6 @@
 package routers
 
 import (
-	"net/http"
 	"nguyenhalinh/go/controllers"
 	"nguyenhalinh/go/middleware"
 
@@ -15,7 +14,6 @@ import (
 func SetupUserRoutes(r *gin.Engine, userPermissions middleware.Permissions) { //truyền vào một router và một map có key là id của role và value là một slice các string là các đường dẫn mà role đó được phép truy cập
     userRoutes := r.Group("/user") //tạo một group route có prefix là /user
     {
-        userRoutes.StaticFS("/uploads", http.Dir("uploads")) // etc http://localhost:8080/admin/uploads/image_1681259025825561000.png
         userRoutes.POST("/register", controllers.RegisterUser)
         userRoutes.POST("/login", controllers.LoginUser)
         userRoutes.GET("/logout", controllers.Logout)
