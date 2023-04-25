@@ -52,7 +52,7 @@ VMA-FINALPROJECT/
 1. Clone this project to your computer by CLI git clone
 2. Enter website: https://go.dev/dl/ to download golang package 1.20.3
 3. Enter website: https://www.docker.com/ to download docker
-4. Open the project you cloned on your computer, find .env file and put your environment 
+4. Open the project you cloned on your computer, find .env file and set your environment 
 5. Step by step following part: 
 - Run docker desktop
 - right click on anywhere into project folder >>> choose terminal here then typing "docker-compose up -d"
