@@ -51,15 +51,12 @@ VMA-FINALPROJECT/
 **How to run it?**
 1. Clone this project to your computer by CLI git clone
 2. Enter website: https://go.dev/dl/ to download golang package 1.20.3
-3. Enter website: https://www.docker.com/ to download docker
-4. Open the project you cloned on your computer, find .env file and set your environment 
-5. Step by step following part: 
-- Run docker desktop
-- Right click on anywhere into project folder >>> choose terminal here then typing "docker-compose up -d" (optional: "docker-compose down")
-- When all done, typing "go mod download"
-6. Finally open terminal in IDE and typing "go run main.go"
-
-ALL SET ARE DONE, YOUR PROJECT IS READY TO RUN
+3. Enter website: https://www.docker.com/ to download docker and run docker desktop
+4. Open the project you cloned on your computer and step by step following part: 
+- Create a ".env" file and set your environment 
+- Terminal: typing "docker-compose up -d"
+- Terminal: typing "go mod download"
+5. ALL SET ARE DONE, typing "go run main.go" to run project
 
 
 **Bugs during project starting on:**
