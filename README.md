@@ -55,8 +55,8 @@ VMA-FINALPROJECT/
 4. Open the project you cloned on your computer, find .env file and set your environment 
 5. Step by step following part: 
 - Run docker desktop
-- right click on anywhere into project folder >>> choose terminal here then typing "docker-compose up -d" (optional: docker-compose down)
-- when all done, typing "go mod download"
+- Right click on anywhere into project folder >>> choose terminal here then typing "docker-compose up -d" (optional: "docker-compose down")
+- When all done, typing "go mod download"
 6. Finally open terminal in IDE and typing "go run main.go"
 
 ALL SET ARE DONE, YOUR PROJECT IS READY TO RUN
