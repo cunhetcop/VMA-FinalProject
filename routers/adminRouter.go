@@ -9,8 +9,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupAdminRoutes(r *gin.Engine, adminPermissions middleware.Permissions) { //truyền vào một router và một map có key là id của role và value là một slice các string là các đường dẫn mà role đó được phép truy cập
-    adminRoutes := r.Group("/admin") //tạo một group route có prefix là /admin
+func SetupAdminRoutes(r *gin.Engine, adminPermissions middleware.Permissions) { 
+    adminRoutes := r.Group("/admin")
     {
         adminRoutes.POST("/register", controllers.RegisterAdmin)
         adminRoutes.POST("/login", controllers.LoginAdmin)

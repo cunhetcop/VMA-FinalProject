@@ -10,9 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//hàm này để đăng ký các route cho user
-func SetupUserRoutes(r *gin.Engine, userPermissions middleware.Permissions) { //truyền vào một router và một map có key là id của role và value là một slice các string là các đường dẫn mà role đó được phép truy cập
-    userRoutes := r.Group("/user") //tạo một group route có prefix là /user
+
+func SetupUserRoutes(r *gin.Engine, userPermissions middleware.Permissions) {
+    userRoutes := r.Group("/user")
     {
         userRoutes.POST("/register", controllers.RegisterUser)
         userRoutes.POST("/login", controllers.LoginUser)
