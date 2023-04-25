@@ -7,7 +7,6 @@ import (
 	"gorm.io/gorm"
 )
 type Product struct {
-    gorm.Model
     ID        uint   `gorm:"primaryKey" json:"id"`
     Name        string  `gorm:"not null" validate:"required" json:"name"`
     Description string  `gorm:"not null" validate:"required" json:"description"`
