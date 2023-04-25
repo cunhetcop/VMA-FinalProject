@@ -58,6 +58,7 @@ VMA-FINALPROJECT/
 - right click on anywhere into project folder >>> choose terminal here then typing "docker-compose up -d"
 - when all done, typing "go mod download"
 6. Finally open terminal in IDE and typing "go run main.go"
+
 ALL SET ARE DONE, YOUR PROJECT IS READY TO RUN
 
 
