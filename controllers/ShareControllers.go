@@ -1,4 +1,3 @@
-//controllers/ShareControllers.go
 package controllers
 
 import (

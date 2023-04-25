@@ -1,10 +1,6 @@
-//controllers/UserController.go
 package controllers
 
 import (
-	"bytes"
-	"encoding/base64"
-	"io"
 	"net/http"
 	"nguyenhalinh/go/models"
 	"nguyenhalinh/go/services"
@@ -187,30 +183,4 @@ func GetCategorybyID(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"category": category})
-}
-
-func UploadUserImage(c *gin.Context) {
-	file, _, err := c.Request.FormFile("image")
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid file"})
-		return
-	}
-
-	var buf bytes.Buffer
-	_, err = io.Copy(&buf, file)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error reading file"})
-		return
-	}
-
-	encodedImage := base64.StdEncoding.EncodeToString(buf.Bytes())
-
-	userID := getCurrentUserID(c)
-	err = services.UploadImage(userID, encodedImage)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error updating user image"})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"message": "User image uploaded successfully"})
 }

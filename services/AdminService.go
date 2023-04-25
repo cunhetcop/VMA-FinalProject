@@ -267,7 +267,7 @@ func DeleteUserAdminService(userID, currentUserID uint, token string) error {
 	return nil
 }
 
-func UploadImageAdminService(userID, currentUserID uint, fileReader io.Reader, imagePath string) error {
+func UploadUserImageService(userID, currentUserID uint, fileReader io.Reader, imagePath string) error {
 	var user models.User
 	if err := database.DB.Where("id = ?", userID).First(&user).Error; err != nil {
 		return errors.New("user not found")
@@ -308,17 +308,66 @@ input := &s3.PutObjectInput{
 	ContentType: aws.String(contentType), // Thêm dòng này để đặt loại nội dung
 }
 
-    _, err = s3Client.PutObject(input)
-    if err != nil {
-        fmt.Printf("S3 Error Detail: %v\n", err) // Thêm dòng này để in thông tin chi tiết của lỗi
-        return errors.New("error uploading image to S3")
-    }
-    baseURL := "https://vma-demo.s3.ap-southeast-1.amazonaws.com/"
-    imageURL := baseURL + imagePath
-	user.Images = imageURL
+_, err = s3Client.PutObject(input)
+if err != nil {
+	fmt.Printf("S3 Error Detail: %v\n", err) // Thêm dòng này để in thông tin chi tiết của lỗi
+	return errors.New("error uploading image to S3")
+}
+baseURL := "https://vma-demo.s3.ap-southeast-1.amazonaws.com/"
+imageURL := baseURL + imagePath
+user.Images = imageURL
 
-	if err := database.DB.Save(&user).Error; err != nil {
-		return errors.New("error updating user with new image")
+if err := database.DB.Save(&user).Error; err != nil {
+	return errors.New("error updating user with new image")
+}
+
+return nil
+}
+
+func UploadProductImageService(productID uint, fileReader io.Reader, imagePath string) error {
+	var product models.Product
+    if err := database.DB.Where("id = ?", productID).First(&product).Error; err != nil {
+        return errors.New("product not found")
+    }
+
+    sess := utils.InitAWSSession()
+    s3Client := utils.InitS3Client(sess)
+
+	buf := new(bytes.Buffer)
+	_, err := buf.ReadFrom(fileReader)
+	if err != nil {
+		return errors.New("error reading file")
+	}
+
+	hasher := md5.New()
+	_, err = io.Copy(hasher, bytes.NewReader(buf.Bytes()))
+	if err != nil {
+		return errors.New("error calculating MD5 hash")
+	}
+	contentMD5 := base64.StdEncoding.EncodeToString(hasher.Sum(nil))
+
+	contentType := http.DetectContentType(buf.Bytes())
+
+	input := &s3.PutObjectInput{
+		Body:        aws.ReadSeekCloser(bytes.NewReader(buf.Bytes())),
+		Bucket:      aws.String("vma-demo"),
+		Key:         aws.String(imagePath),
+		ContentMD5:  aws.String(contentMD5),
+		ContentType: aws.String(contentType),
+	}
+
+	_, err = s3Client.PutObject(input)
+	if err != nil {
+		fmt.Printf("S3 Error Detail: %v\n", err)
+		return errors.New("error uploading image to S3")
+	}
+
+	baseURL := "https://vma-demo.s3.ap-southeast-1.amazonaws.com/"
+	imageURL := baseURL + imagePath
+	product.Images = imageURL
+
+	if err := database.DB.Save(&product).Error; err != nil {
+		return errors.New("error updating product with new image")
 	}
 
 	return nil

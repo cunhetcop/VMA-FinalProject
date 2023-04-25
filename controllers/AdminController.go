@@ -1,4 +1,3 @@
-//controllers/AdminController.go
 package controllers
 
 import (
@@ -12,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 
+	"nguyenhalinh/go/database"
 	"nguyenhalinh/go/models"
 	"nguyenhalinh/go/services"
 )
@@ -332,7 +332,7 @@ func DeleteUserAdmin(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "User deleted successfully"})
 }
 
-func UploadImageAdmin(c *gin.Context) {
+func UploadUsersImage(c *gin.Context) {
 	userIDUint, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
@@ -358,12 +358,59 @@ func UploadImageAdmin(c *gin.Context) {
 	imagePath := filepath.Join("uploads", imageFileName)
     baseURL := "https://vma-demo.s3.ap-southeast-1.amazonaws.com/"
     imageURL := baseURL + imagePath
-
-	err = services.UploadImageAdminService(uint(userIDUint), currentUserID, fileReader, imagePath)
+	err = services.UploadUserImageService(uint(userIDUint), currentUserID, fileReader, imagePath)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
+
     c.JSON(http.StatusOK, gin.H{"message": "Image uploaded and assigned to user successfully", "image_url": imageURL})
+}
+
+func UploadProductsImage(c *gin.Context) {
+    productIDUint, err := strconv.ParseUint(c.Param("id"), 10, 32)
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
+        return
+    }
+
+    currentUserID := getCurrentUserID(c)
+
+    // Kiểm tra quyền admin
+    var currentUser models.User
+    if err := database.DB.Where("id = ?", currentUserID).First(&currentUser).Error; err != nil {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+        return
+    }
+    if currentUser.RoleID != models.AdminRoleID {
+        c.JSON(http.StatusForbidden, gin.H{"error": "You are not authorized to upload images for products"})
+        return
+    }
+
+    file, err := c.FormFile("image")
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid file"})
+        return
+    }
+
+    fileReader, err := file.Open()
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Error reading file"})
+        return
+    }
+    defer fileReader.Close()
+
+    imageFileName := fmt.Sprintf("image_%d.png", time.Now().UnixNano())
+    imagePath := filepath.Join("uploads", imageFileName)
+    baseURL := "https://vma-demo.s3.ap-southeast-1.amazonaws.com/"
+    imageURL := baseURL + imagePath
+
+    err = services.UploadProductImageService(uint(productIDUint), fileReader, imagePath)
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{"message": "Image uploaded and assigned to product successfully", "image_url": imageURL})
 }

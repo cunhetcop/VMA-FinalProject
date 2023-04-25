@@ -38,9 +38,8 @@ func main() {
             "/user/products/:id",
             "/user/categories",
             "/user/categories/:id",
-            "/user/uploads",
             "/user/logout",
-            "/user/forgotpassword",
+            "/user/forgot-password",
         },
     }
 
@@ -52,10 +51,10 @@ func main() {
             "/admin/products/:id",
             "/admin/categories",
             "/admin/categories/:id",
-            "/admin/upload-avatar/:id",
+            "/admin/upload-avatar-user/:id",
+            "/admin/upload-avatar-product/:id",
             "/admin/logout",
-            "/admin/forgotpassword",
-            "/admin/profileadmin",
+            "/admin/forgot-password",
         },
     }
 
