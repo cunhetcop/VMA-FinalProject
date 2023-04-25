@@ -45,12 +45,19 @@ func ResetPassword(input *ForgotPasswordInput) (string, error) {
 
 	htmlBody := strings.Replace(emailTemplate, "{{.Password}}", newPassword, 1)
 
-	go func() {
-		err := utils.SendEmail(user.Email, emailSubject, htmlBody)
-		if err != nil {
-			fmt.Printf("error sending email: %v\n", err)
-		}
-	}()
+    errorChannel := make(chan error, 1)
 
-	return newPassword, nil
+    go func() {
+        err := utils.SendEmail(user.Email, emailSubject, htmlBody)
+        errorChannel <- err
+    }()
+
+    go func() {
+        err := <-errorChannel
+        if err != nil {
+            fmt.Printf("error sending email: %v\n", err)
+        }
+    }()
+
+    return newPassword, nil
 }

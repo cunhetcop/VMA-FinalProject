@@ -51,19 +51,19 @@ VMA-FINALPROJECT/
 **How to run it?**
 1. Clone this project to your computer by CLI git clone
 2. Enter website: https://go.dev/dl/ to download golang package 1.20.3
-3. Enter website: https://www.docker.com/ to download docker, setup and run it.
-4. Open the project you cloned on your computer, following step by step:
-- right click on anywhere into project folder >>> terminal here
-- typing "docker-compose up -d"
+3. Enter website: https://www.docker.com/ to download docker
+4. Open the project you cloned on your computer, find .env file and set your environment 
+5. Step by step following part: 
+- Run docker desktop
+- right click on anywhere into project folder >>> choose terminal here then typing "docker-compose up -d"
 - when all done, typing "go mod download"
-5. Now open the project with whatever IDE you have (VScode, IntellIJ...) and download extensions/plugins following name: Go (or golang) .
-6. Find .env file and put your environment here
-7. Finally open terminal in IDE and typing "go run main.go"
+6. Finally open terminal in IDE and typing "go run main.go"
+
 ALL SET ARE DONE, YOUR PROJECT IS READY TO RUN
 
 
 **Bugs during project starting on:**
-1. If an error occurs when running main.go try running this command: "docker-compose down" at the terminal of the project directory
+1. If an error "failed to initialize database..." try running this command: "docker-compose down" at the terminal of the project directory
 2. If there is a redis initialization error, try changing the following value in the .env file: "localhost:6379" to "redis:6379". Or try changing to another port
 3. If there is any error with go mod or go sum, run the command "go mod tidy" (not recommended)
 4. If you have any questions, please contact me by email: linhnh4@vmodev.com
