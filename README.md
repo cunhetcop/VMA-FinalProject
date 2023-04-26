@@ -7,7 +7,7 @@ Welcome to my project, this is my first personal golang project at VMA, here's s
 
 The project describes product management on an online sales website, consisting of 4 main tables: user, role, category, product
 
-Diagrams
+**Diagrams**
 <pre>
                              ┌──────────┐
                              │ Products │
