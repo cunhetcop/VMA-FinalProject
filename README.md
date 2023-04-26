@@ -7,6 +7,36 @@ Welcome to my project, this is my first personal golang project at VMA, here's s
 
 The project describes product management on an online sales website, consisting of 4 main tables: user, role, category, product
 
+Diagrams
+<pre>
+                             ┌──────────┐
+                             │ Products │
+                             │          │
+                ┌───────── n │          │ n ─────────┐
+                │            │          │            │
+                │            │          │            │
+                │            └──────────┘            │
+                │                                    │
+                │1                                   │1
+           ┌────┴──────┐                        ┌────┴─────┐
+           │ Categories│                        │   Users  │
+           │           │                        │          │
+           │           │                        │          │
+           │           │                        │          │
+           └───────────┘                        └──────────┘
+                                                     │n
+                                                     │
+                                                     │
+                                                     │
+                                                     │1
+                                                ┌────┴─────┐
+                                                │   Roles  │
+                                                │          │
+                                                │          │
+                                                │          │
+                                                └──────────┘
+</pre>
+
 **Project functions:**
 - Register, log in, log out and authenticate with JWT, decentralize with RBAC
 - CRUD with user and admin roles, specifically: user role can only CRUD themselves, can only view products but cannot add, edit, delete products. Meanwhile, the admin has full rights to users, categories, and products but cannot CRUD other admins.
@@ -66,3 +96,4 @@ VMA-FINALPROJECT/
 4. If you have any questions, please contact me by email: linhnh4@vmodev.com
 
 **THANK YOU**
+
