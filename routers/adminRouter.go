@@ -14,10 +14,10 @@ func SetupAdminRoutes(r *gin.Engine, adminPermissions middleware.Permissions) {
     {
         adminRoutes.POST("/register", controllers.RegisterAdmin)
         adminRoutes.POST("/login", controllers.LoginAdmin)
-        adminRoutes.GET("/logout", controllers.Logout)
         adminRoutes.GET("/forgot-password", controllers.ForgotPassword)
         adminRoutes.Use(middleware.AuthMiddleware(utils.RedisClient))
         adminRoutes.Use(middleware.RBACMiddleware(adminPermissions, utils.RedisClient))
+        adminRoutes.GET("/logout", controllers.Logout)
         adminRoutes.GET("/users", controllers.GetUserListAdmin)
         adminRoutes.GET("/users/:id", controllers.GetUserAdmin)
         adminRoutes.PUT("/users/:id", controllers.UpdateUserAdmin)

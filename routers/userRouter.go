@@ -16,10 +16,10 @@ func SetupUserRoutes(r *gin.Engine, userPermissions middleware.Permissions) {
     {
         userRoutes.POST("/register", controllers.RegisterUser)
         userRoutes.POST("/login", controllers.LoginUser)
-        userRoutes.GET("/logout", controllers.Logout)
         userRoutes.GET("/forgot-password", controllers.ForgotPassword)
         userRoutes.Use(middleware.AuthMiddleware(utils.RedisClient))
         userRoutes.Use(middleware.RBACMiddleware(userPermissions, utils.RedisClient))
+        userRoutes.GET("/logout", controllers.Logout)
         userRoutes.GET("/profile", controllers.GetMyProfile)
         userRoutes.PUT("/profile", controllers.UpdateMyProfile)
         userRoutes.DELETE("/profile", controllers.DeleteMyProfile)
