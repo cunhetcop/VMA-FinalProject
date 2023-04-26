@@ -20,7 +20,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func CreateCategory(name string) (*models.Category, error) {
+func CreateCategoryHandler(name string) (*models.Category, error) {
 	category := models.Category{Name: name}
 	if err := database.DB.Create(&category).Error; err != nil {
 		return nil, err
@@ -29,7 +29,7 @@ func CreateCategory(name string) (*models.Category, error) {
 	return &category, nil
 }
 
-func UpdateCategory(categoryID uint, newName string) (*models.Category, error) {
+func UpdateCategoryHandler(categoryID uint, newName string) (*models.Category, error) {
 	var category models.Category
 	if err := database.DB.Where("id = ?", categoryID).First(&category).Error; err != nil {
 		return nil, errors.New("category not found")
@@ -42,7 +42,7 @@ func UpdateCategory(categoryID uint, newName string) (*models.Category, error) {
 	return &category, nil
 }
 
-func DeleteCategory(categoryID uint) error {
+func DeleteCategoryHandler(categoryID uint) error {
 	var category models.Category
 	if err := database.DB.Where("id = ?", categoryID).First(&category).Error; err != nil {
 		return errors.New("category not found")
@@ -55,7 +55,7 @@ func DeleteCategory(categoryID uint) error {
 	return nil
 }
 
-func GetCategoryListAdmin() ([]models.Category, error) {
+func GetCategoryListAdminHandler() ([]models.Category, error) {
 	var categories []models.Category
 	if err := database.DB.Find(&categories).Error; err != nil {
 		return nil, errors.New("error retrieving categories")
@@ -64,7 +64,7 @@ func GetCategoryListAdmin() ([]models.Category, error) {
 	return categories, nil
 }
 
-func GetCategoryByIDAdmin(categoryID string) (models.Category, error) {
+func GetCategoryByIDAdminHandler(categoryID string) (models.Category, error) {
 	var category models.Category
 	if err := database.DB.First(&category, categoryID).Error; err != nil {
 		return models.Category{}, errors.New("category not found")
@@ -74,7 +74,7 @@ func GetCategoryByIDAdmin(categoryID string) (models.Category, error) {
 }
 
 //services
-func CreateProduct(product *models.Product) error {
+func CreateProductHandler(product *models.Product) error {
 	if err := database.DB.Create(product).Error; err != nil {
 		return errors.New("error creating product")
 	}
@@ -89,7 +89,7 @@ func CreateProduct(product *models.Product) error {
 
 
 
-func UpdateProduct(productID uint, updatedProduct *models.Product) error {
+func UpdateProductHandler(productID uint, updatedProduct *models.Product) error {
 	var product models.Product
 	if err := database.DB.Where("id = ?", productID).First(&product).Error; err != nil {
 		return errors.New("product not found")
@@ -115,7 +115,7 @@ func UpdateProduct(productID uint, updatedProduct *models.Product) error {
 	return nil
 }
 
-func DeleteProduct(productID uint) error {
+func DeleteProductHandler(productID uint) error {
 	var product models.Product
 	if err := database.DB.Where("id = ?", productID).First(&product).Error; err != nil {
 		return errors.New("product not found")
@@ -128,7 +128,7 @@ func DeleteProduct(productID uint) error {
 	return nil
 }
 
-func GetProductListAdmin() ([]models.Product, error) {
+func GetProductListAdminHandler() ([]models.Product, error) {
 	var products []models.Product
 	if err := database.DB.Preload("Category").Preload("User").Find(&products).Error; err != nil {
 		return nil, errors.New("error fetching products")
@@ -137,7 +137,7 @@ func GetProductListAdmin() ([]models.Product, error) {
 	return products, nil
 }
 
-func GetProductByIDAdmin(productID uint) (models.Product, error) {
+func GetProductByIDAdminHandler(productID uint) (models.Product, error) {
 	var product models.Product
 	if err := database.DB.Preload("Category").Preload("User").Where("id = ?", productID).First(&product).Error; err != nil {
 		return models.Product{}, errors.New("product not found")
@@ -207,7 +207,7 @@ func GetUserAdminHandler(id string) (*models.User, error) {
 	return &user, nil
 }
 
-func UpdateUserAdminService(currentUserID, targetUserID uint, firstName, lastName, images, phone, password string) (*models.User, error) {
+func UpdateUserAdminHandler(currentUserID, targetUserID uint, firstName, lastName, images, phone, password string) (*models.User, error) {
 	var currentUser, targetUser models.User
 	if err := database.DB.Preload("Role").Where("id = ?", currentUserID).First(&currentUser).Error; err != nil {
 		return nil, errors.New("current user not found")
@@ -242,7 +242,7 @@ func UpdateUserAdminService(currentUserID, targetUserID uint, firstName, lastNam
 }
 
 
-func DeleteUserAdminService(userID, currentUserID uint, token string) error {
+func DeleteUserAdminHandler(userID, currentUserID uint, token string) error {
 	var user models.User
 	if err := database.DB.Where("id = ?", userID).First(&user).Error; err != nil {
 		return errors.New("user not found")
@@ -267,7 +267,7 @@ func DeleteUserAdminService(userID, currentUserID uint, token string) error {
 	return nil
 }
 
-func UploadUserImageService(userID, currentUserID uint, fileReader io.Reader, imagePath string) error {
+func UploadUserImageHandler(userID, currentUserID uint, fileReader io.Reader, imagePath string) error {
 	var user models.User
 	if err := database.DB.Where("id = ?", userID).First(&user).Error; err != nil {
 		return errors.New("user not found")
@@ -324,7 +324,7 @@ if err := database.DB.Save(&user).Error; err != nil {
 return nil
 }
 
-func UploadProductImageService(productID uint, fileReader io.Reader, imagePath string) error {
+func UploadProductImageHandler(productID uint, fileReader io.Reader, imagePath string) error {
 	var product models.Product
     if err := database.DB.Where("id = ?", productID).First(&product).Error; err != nil {
         return errors.New("product not found")

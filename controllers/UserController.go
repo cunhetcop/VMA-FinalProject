@@ -134,7 +134,7 @@ func DeleteMyProfile(c *gin.Context) {
 	}
 	token := c.GetString("token")
 
-	err := services.DeleteUser(&currentUser, token)
+	err := services.DeleteUserHandler(&currentUser, token)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -144,7 +144,7 @@ func DeleteMyProfile(c *gin.Context) {
 }
 
 func GetProductList(c *gin.Context) {
-	products, err := services.GetAllProducts()
+	products, err := services.GetAllProductHandler()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error retrieving products"})
 		return
@@ -155,7 +155,7 @@ func GetProductList(c *gin.Context) {
 
 func GetProductByID(c *gin.Context) {
 	id := c.Param("id")
-	product, err := services.GetProductByID(id)
+	product, err := services.GetProductByIDHandler(id)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Product not found"})
 		return
@@ -165,7 +165,7 @@ func GetProductByID(c *gin.Context) {
 }
 
 func GetCategoryList(c *gin.Context) {
-	categories, err := services.GetCategoryList()
+	categories, err := services.GetCategoryListHandler()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error retrieving categories"})
 		return
@@ -176,7 +176,7 @@ func GetCategoryList(c *gin.Context) {
 
 func GetCategorybyID(c *gin.Context) {
 	id := c.Param("id")
-	category, err := services.GetCategoryByID(id)
+	category, err := services.GetCategoryByIDHandler(id)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Category not found"})
 		return

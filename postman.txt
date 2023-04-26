@@ -1,0 +1,179 @@
+---------------------------------------------------------------------
+------------------------------Admin-API-------------------------------
+---------------------------------------------------------------------
+
+1.Register admin
+POST http://localhost:8080/admin/register
+{
+"first_name": "Michael",
+"last_name": "Jordan",
+"email": "jordan.michael@gmail.com",
+"password": "123123123",
+"confirm_password": "123123123",
+"images": "A man with black hat.jpeg",
+"phone": "0123456789"
+}
+
+2.Login admin
+POST http://localhost:8080/admin/login
+{
+"email": "jordan.michael@gmail.com",
+"password": "123123123"
+}
+
+3.Show user list (need token)
+GET http://localhost:8080/admin/users
+
+4.Logout (need token)
+GET http://localhost:8080/admin/logout
+
+5.Show user by id (need token)
+GET http://localhost:8080/admin/users/1
+
+6.Update user by id (need token)
+PUT http://localhost:8080/admin/users/1
+{
+	"first_name": "Takumi",
+	"last_name": "Nishimoto",
+    "password": "456456456",
+    "confirm_password": "456456456",
+	"images": "this images has been changed",
+	"phone": "22222222"
+}
+
+7.Delete user by id (need token)
+DELETE http://localhost:8080/admin/users/1
+
+
+---------------------------------------------------------------------
+------------------------------User-API-------------------------------
+---------------------------------------------------------------------
+
+8. Register user
+POST http://localhost:8080/user/register
+{
+	"first_name": "Mohamed",
+	"last_name": "Salah",
+	"email": "mohamed@gmail.com",
+	"password": "123123123",
+	"confirm_password": "123123123",
+	"images": "Arabic night.jpeg",
+	"phone": "22334455"
+}
+
+9.Login user
+POST http://localhost:8080/user/login
+{
+    "email": "mohamed@gmail.com",
+	"password": "123123123"
+}
+
+10. Show my profile (need user token)
+POST http://localhost:8080/user/profile
+
+11. Logout (need user token)
+GET http://localhost:8080/user/logout
+
+12. Update my profile (need user token)
+PUT http://localhost:8080/user/profile
+{
+	"first_name": "Estado",
+	"last_name": "Mexicano",
+    "password": "123123123",
+    "confirm_password": "123123123",
+	"images": "A man with gun and red hat",
+	"phone": "11111111"
+}
+
+13. Delete my profile (need user token)
+DELETE http://localhost:8080/user/profile
+
+14. Show product list (need user token)
+GET http://localhost:8080/user/products
+
+15. Show product by id (need user token)
+GET http://localhost:8080/user/products/1
+
+16. Show categories list (need user token)
+GET http://localhost:8080/user/categories
+
+17. Show categories by id (need user token)
+GET http://localhost:8080/user/categories/1
+
+---------------------------------------------------------------------
+------------------------------Category+Product-API-------------------
+---------------------------------------------------------------------
+
+18. Create category (need admin token)
+POST http://localhost:8080/admin/categories
+{
+    "name": "Foods"
+}
+
+19. Show category list (need admin token)
+GET http://localhost:8080/admin/categories
+
+20. Show category by id (need admin token)
+GET http://localhost:8080/admin/categories/1
+
+21. Update category by id (need admin token)
+PUT http://localhost:8080/admin/categories/1
+{
+    "name": "Drinks"
+}
+
+22. Delete category by id (need admin token)
+DELETE http://localhost:8080/admin/categories/1
+
+23. Create product (need admin token)
+POST http://localhost:8080/admin/products
+{
+    "name": "Vinamilk",
+    "description": "Fresh milk from Ba Vi farm",
+    "price": 120.0,
+    "quantity": 10,
+    "images": "milk.jpeg",
+    "category_id": 1,
+    "user_id": 1
+}
+
+24. Show product list (need admin token)
+GET http://localhost:8080/admin/products
+
+25. Show product by id (need admin token)
+GET http://localhost:8080/admin/products/1
+
+26. Update product by id (need admin token)
+PUT http://localhost:8080/admin/products/1
+{
+    "name": "Water gun",
+    "description": "for child",
+    "price": 100.0,
+    "quantity": 100,
+    "images": "A boy with water gun and his father.jpeg",
+    "category_id": 2,
+    "user_id": 2
+}
+
+27. Delete product by id (need admin token)
+DELETE http://localhost:8080/admin/products/1
+
+---------------------------------------------------------------------
+------------------------------Extensions-API-------------------------
+---------------------------------------------------------------------
+
+28. Upload avatar users (need admin token)
+POST http://localhost:8080/admin/upload-avatar-user/1
+body: form-data 
+key: image >> value: select Files
+
+29. Up;oad avatar products (need admin token)
+POST http://localhost:8080/admin/upload-avatar-product/1
+body: form-data
+key: image >> value: select Files
+
+30.Forgot password
+GET http://localhost:8080/user/forgot-password
+{
+    "email": example@gmail.com"
+}

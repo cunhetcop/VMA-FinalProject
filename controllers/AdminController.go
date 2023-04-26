@@ -31,7 +31,7 @@ func CreateCategoryAdmin(c *gin.Context) {
 		return
 	}
 
-	category, err := services.CreateCategory(input.Name)
+	category, err := services.CreateCategoryHandler(input.Name)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error creating category"})
 		return
@@ -62,7 +62,7 @@ func UpdateCategoryAdmin(c *gin.Context) {
 		return
 	}
 
-	updatedCategory, err := services.UpdateCategory(uint(categoryID), input.Name)
+	updatedCategory, err := services.UpdateCategoryHandler(uint(categoryID), input.Name)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -79,7 +79,7 @@ func DeleteCategoryAdmin(c *gin.Context) {
 		return
 	}
 
-	err = services.DeleteCategory(uint(categoryID))
+	err = services.DeleteCategoryHandler(uint(categoryID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -89,7 +89,7 @@ func DeleteCategoryAdmin(c *gin.Context) {
 }
 
 func GetCategoryListAdmin(c *gin.Context) {
-	categories, err := services.GetCategoryListAdmin()
+	categories, err := services.GetCategoryListAdminHandler()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -101,7 +101,7 @@ func GetCategoryListAdmin(c *gin.Context) {
 func GetCategorybyIDAdmin(c *gin.Context) {
 	categoryID := c.Param("id")
 
-	category, err := services.GetCategoryByIDAdmin(categoryID)
+	category, err := services.GetCategoryByIDAdminHandler(categoryID)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
@@ -126,7 +126,7 @@ func CreateProductAdmin(c *gin.Context) {
 		UserID:      input.UserID,
 	}
 
-	err := services.CreateProduct(&product)
+	err := services.CreateProductHandler(&product)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -157,7 +157,7 @@ func UpdateProductAdmin(c *gin.Context) {
 		UserID:      input.UserID,
 	}
 
-	err = services.UpdateProduct(uint(productID), &updatedProduct)
+	err = services.UpdateProductHandler(uint(productID), &updatedProduct)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -173,7 +173,7 @@ func DeleteProductAdmin(c *gin.Context) {
 		return
 	}
 
-	err = services.DeleteProduct(uint(productID))
+	err = services.DeleteProductHandler(uint(productID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -183,7 +183,7 @@ func DeleteProductAdmin(c *gin.Context) {
 }
 
 func GetProductListAdmin(c *gin.Context) {
-	products, err := services.GetProductListAdmin()
+	products, err := services.GetProductListAdminHandler()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -199,7 +199,7 @@ func GetProductAdmin(c *gin.Context) {
 		return
 	}
 
-	product, err := services.GetProductByIDAdmin(uint(productID))
+	product, err := services.GetProductByIDAdminHandler(uint(productID))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
@@ -258,7 +258,7 @@ func LoginAdmin(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token, "admin": admin, "RoleID": admin.RoleID})
+	c.JSON(http.StatusOK, gin.H{"token": token, "admin": admin})
 }
 
 // controllers/adminController.go
@@ -303,7 +303,7 @@ func UpdateUserAdmin(c *gin.Context) {
 
 	currentUserID := getCurrentUserID(c)
 
-	updatedUser, err := services.UpdateUserAdminService(currentUserID, uint(userIDUint), input.FirstName, input.LastName, input.Images, input.Phone, input.Password)
+	updatedUser, err := services.UpdateUserAdminHandler(currentUserID, uint(userIDUint), input.FirstName, input.LastName, input.Images, input.Phone, input.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -323,7 +323,7 @@ func DeleteUserAdmin(c *gin.Context) {
 	currentUserID := getCurrentUserID(c)
 	token := c.GetString("token")
 
-	err = services.DeleteUserAdminService(uint(userIDUint), currentUserID, token)
+	err = services.DeleteUserAdminHandler(uint(userIDUint), currentUserID, token)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -358,7 +358,7 @@ func UploadUsersImage(c *gin.Context) {
 	imagePath := filepath.Join("uploads", imageFileName)
     baseURL := "https://vma-demo.s3.ap-southeast-1.amazonaws.com/"
     imageURL := baseURL + imagePath
-	err = services.UploadUserImageService(uint(userIDUint), currentUserID, fileReader, imagePath)
+	err = services.UploadUserImageHandler(uint(userIDUint), currentUserID, fileReader, imagePath)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -406,7 +406,7 @@ func UploadProductsImage(c *gin.Context) {
     baseURL := "https://vma-demo.s3.ap-southeast-1.amazonaws.com/"
     imageURL := baseURL + imagePath
 
-    err = services.UploadProductImageService(uint(productIDUint), fileReader, imagePath)
+    err = services.UploadProductImageHandler(uint(productIDUint), fileReader, imagePath)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         return

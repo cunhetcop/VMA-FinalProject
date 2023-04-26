@@ -53,10 +53,6 @@ func LoginUserHandler(email, password string) (string, *models.User, error) {
 }
 
 func GetMyProfileHandler(user *models.User) *models.User {
-	// Không cần thực hiện các thao tác cần thiết để lấy thông tin người dùng từ cơ sở dữ liệu
-	// Vì bạn đã có thông tin người dùng từ gin.Context
-
-	// Trả về thông tin người dùng
 	return user
 }
 
@@ -81,7 +77,7 @@ func UpdateProfileHandler(user *models.User, firstName, lastName, images, phone,
 	return nil
 }
 
-func DeleteUser(user *models.User, token string) error {
+func DeleteUserHandler(user *models.User, token string) error {
 	err := database.DB.Unscoped().Delete(user).Error
 	if err != nil {
 		return errors.New("error deleting user profile")
@@ -96,7 +92,7 @@ func DeleteUser(user *models.User, token string) error {
 	return nil
 }
 
-func GetAllProducts() ([]models.Product, error) {
+func GetAllProductHandler() ([]models.Product, error) {
 	var products []models.Product
 	if err := database.DB.Preload("Category").Find(&products).Error; err != nil {
 		return nil, err
@@ -104,7 +100,7 @@ func GetAllProducts() ([]models.Product, error) {
 	return products, nil
 }
 
-func GetProductByID(id string) (*models.Product, error) {
+func GetProductByIDHandler(id string) (*models.Product, error) {
 	var product models.Product
 	if err := database.DB.Preload("Category").First(&product, id).Error; err != nil {
 		return nil, err
@@ -112,7 +108,7 @@ func GetProductByID(id string) (*models.Product, error) {
 	return &product, nil
 }
 
-func GetCategoryList() ([]models.Category, error) {
+func GetCategoryListHandler() ([]models.Category, error) {
 	var categories []models.Category
 	if err := database.DB.Find(&categories).Error; err != nil {
 		return nil, err
@@ -120,7 +116,7 @@ func GetCategoryList() ([]models.Category, error) {
 	return categories, nil
 }
 
-func GetCategoryByID(id string) (*models.Category, error) {
+func GetCategoryByIDHandler(id string) (*models.Category, error) {
 	var category models.Category
 	if err := database.DB.First(&category, id).Error; err != nil {
 		return nil, err
@@ -128,15 +124,3 @@ func GetCategoryByID(id string) (*models.Category, error) {
 	return &category, nil
 }
 
-func UploadImage(userID uint, encodedImage string) error {
-	var user models.User
-	if err := database.DB.Where("id = ?", userID).First(&user).Error; err != nil {
-		return err
-	}
-
-	if err := database.DB.Model(&user).Update("Images", encodedImage).Error; err != nil {
-		return err
-	}
-
-	return nil
-}

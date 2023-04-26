@@ -33,6 +33,7 @@ func main() {
 
     userPermissions := middleware.Permissions{
         strconv.Itoa(int(userRole.ID)): []string{
+            "/user/register",
             "/user/profile",
             "/user/products",
             "/user/products/:id",
