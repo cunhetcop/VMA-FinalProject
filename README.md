@@ -82,11 +82,11 @@ VMA-FINALPROJECT/
 1. Clone this project to your computer by CLI git clone
 2. Enter website: https://go.dev/dl/ to download golang package 1.20.3
 3. Enter website: https://www.docker.com/ to download docker and run docker desktop
-4. Open the project you cloned on your computer and step by step following part: 
-- Create a ".env" file and set your environment 
-- Terminal: typing "docker-compose up -d"
-- Terminal: typing "go mod download"
-5. ALL SET ARE DONE, typing "go run main.go" to run project
+4. Open the project with any IDE you have (VScode, intelIJ...) and step by step following part: 
+- Ccreate a ".env" file and setup your environment based on the template in the ".env.example" file available in the project
+- Terminal: typing "docker-compose up -d" to pull Images docker
+- Terminal: typing "go mod download" to pull Dependencies in project
+5. ALL SET ARE DONE, typing "go run main.go" to run your project
 
 
 **Bugs during project starting on:**
@@ -94,6 +94,9 @@ VMA-FINALPROJECT/
 2. If there is a redis initialization error, try changing the following value in the .env file: "localhost:6379" to "redis:6379". Or try changing to another port
 3. If there is any error with go mod or go sum, run the command "go mod tidy" (not recommended)
 4. If you have any questions, please contact me by email: linhnh4@vmodev.com
+
+**Attention**
+I have put sample body/raw if you want to use for testing on postman, swagger or any other API testing tool, you will find them in "postman.txt" inside the project.
 
 **THANK YOU**
 
