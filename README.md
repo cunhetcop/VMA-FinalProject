@@ -45,7 +45,7 @@ The project describes product management on an online sales website, consisting 
 - Uses Redis in project
 
 
-Project structure:
+
 **Project structure:**
 <pre>
 VMA-FINALPROJECT/
