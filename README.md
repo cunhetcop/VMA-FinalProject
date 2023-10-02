@@ -93,7 +93,7 @@ VMA-FINALPROJECT/
 1. If an error "failed to initialize database..." try running this command: "docker-compose down" at the terminal of the project directory
 2. If there is a redis initialization error, try changing the following value in the .env file: "localhost:6379" to "redis:6379". Or try changing to another port
 3. If there is any error with go mod or go sum, run the command "go mod tidy" (not recommended)
-4. If you have any questions, please contact me by email: linhnh4@vmodev.com
+4. If you have any questions, please contact me by email: nguyenhalinh.1709@gmail.com
 
 **Attention:**
 
